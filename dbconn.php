@@ -1,18 +1,17 @@
 <?php
 
-$server_name = "localhost";
-$username = "root";
-$pwd = "Anex26!@";
-$db_name = "Location Chronicles";
+function OpenCon(){
+    $dbhost = "localhost";
+    $dbuser = "Gianluca_Sciberras";
+    $dbpass = "Anex26!@";
+    $db = "location_chronicles";
 
-$conn = new mysqli($server_name, $username, $pwd, $db_name);
+    $conn = new mysqli($dbhost, $dbuser, $dbpass, $db) or die("Connection failed: %s\n". $conn -> error);
 
-if ($conn->connect_error){
+    return $conn;
 
-    die("Connection Failed: \n".$conn->connect_error);
+}
 
-}else{
-
-    echo "Connection Successful! \n";
-
+function CloseCon($conn){
+    $conn -> close();
 }
