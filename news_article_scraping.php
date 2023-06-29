@@ -6,7 +6,6 @@ use voku\helper\HtmlDomParser;
 
 function scraping($url): int|array|string|null
 {
-//    $url = "https://timesofmalta.com/articles/view/abela-says-delay-magisterial-inquiry-sofias-death-unacceptable.1025159";
 
 // cURL request
     $curl = curl_init();

@@ -3,9 +3,12 @@
 // create a form validation function
 function validateForm($data): string
 {
+    # Remove whitespace from both sides of a string
     $data = trim($data);
+    # Remove backslashes (\) from a string
     $data = stripslashes($data);
 
+    # Convert special characters to HTML entities
     return htmlspecialchars($data);
 }
 

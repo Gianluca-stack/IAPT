@@ -20,6 +20,7 @@
     <script src="https://kit.fontawesome.com/07913d8309.js" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBLb1a4yud9V2PiKFXTEI2VYrWv6Yfggg&libraries=places"></script>
     <script>
+    // add a marker for each location
         window.onload = function(){
             <?php for ($i=0; $i < count($_SESSION["locations"]); $i++): ?>
                 var lat = <?php echo $_SESSION["locations"][$i]["latitude"]; ?>;
@@ -42,11 +43,6 @@
     <div class="navbar-container">
         <div class="navbar">
             <h1 class="app_title" onclick="HomePage();">Location Chronicles</h1>
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a href="User_feedback.php" class="nav-link">Feedback</a>
-                </li>
-            </ul>
             <div class="news-search">
                 <form action="app-mechanics.php" method="post">
                     <label>
@@ -72,56 +68,67 @@
     </div>
 
     <div class="search_results">
-        <h3 class="results">News Articles found:
-            <?php
-                if(isset($_SESSION["results"])){
-                    echo $_SESSION["results"];
+        <h3 class="results">
+            Location/s:
+            <?php 
+            
+            for($i = 0; $i < count($_SESSION["locations"]); $i++): 
+
+                if($i == count($_SESSION["locations"]) - 1){
+                    echo $_SESSION["locations"][$i]["location"];
+                }else{
+                    echo $_SESSION["locations"][$i]["location"] . ", ";
                 }
+
+            endfor;
+                
+            ?>
+            |
+            Articles:
+            <?php
+                echo count($_SESSION["articles"]);
             ?>
         </h3>
     </div>
 
     <div class="grid-container">
         <?php for($i = 0; $i < count($_SESSION["articles"]); $i++): ?>
-            <div>
                 <div class="news-container">
-                    <div class="news-flex">
-                        <section class="news-details">
-                            <div class="location">
-                                <h3>Location: <?php echo $_SESSION["articles"][$i]["article_location"] ?></h3>
-                            </div>
-                            <div class="date">
-                                <h3>Date: <?php echo $_SESSION["articles"][$i]["article_date"] ?></h3>
-                            </div>
-                        </section>
+                    <div class="view-overlay">
+                        <a href="<?php echo $_SESSION["articles"][$i]["article_url"] ?>" class="view-button" target="_blank" >View</a>
                     </div>
-                    <div class="description">
-                        <div>
-                            <h2><?php echo $_SESSION["articles"][$i]["article_title"] ?></h2>
+                    <div class="news-content">
+                        <div class="news-flex">
+                            <section class="news-details">
+                                <div class="location">
+                                    <h3>Location: <?php echo $_SESSION["articles"][$i]["article_location"] ?></h3>
+                                </div>
+                                <div class="date">
+                                    <h3>Date: <?php echo $_SESSION["articles"][$i]["article_date"] ?></h3>
+                                </div>
+                            </section>
                         </div>
-                        <div>
-                            <h4>Abstract</h4>
-                        </div>
-                        <section class="description">
-                            <p><?php echo $_SESSION["articles"][$i]["article_desc"] ?></p>
-                        </section>
-                        <div>
-                            <h3>By <?php echo $_SESSION["articles"][$i]["article_publisher"] ?></h3>
+                        <div class="description">
+                            <div>
+                                <h2><?php echo $_SESSION["articles"][$i]["article_title"] ?></h2>
+                            </div>
+                            <div>
+                                <h4>Abstract</h4>
+                            </div>
+                            <section class="description">
+                                <p><?php echo $_SESSION["articles"][$i]["article_desc"] ?></p>
+                            </section>
+                            <div>
+                                <h3>By <?php echo $_SESSION["articles"][$i]["article_publisher"] ?></h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="view-article">
-                    <a href="<?php echo $_SESSION["articles"][$i]["article_url"] ?>" target="_blank">
-                        <h4>View</h4>
-                    </a>
-                </div>
-            </div>
         <?php endfor; ?>
+    </div>
+    <!-- add feedback button -->
+    <div class="feedback">
+        <button class="feedback-button" onclick="FeedbackPage();">Feedback</button>
     </div>
 </body>
 </html>
-
-
-
-

@@ -4,7 +4,6 @@ session_start();
 
 require 'queryValidation.php';
 require 'news_article_scraping.php';
-require 'NER.php';
 
 require 'dbconn.php';
 
@@ -14,7 +13,7 @@ $link = "";
 $urlResult = NULL;
 $article_data = array();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") { # If the form is submitted
 
     # Set connection to database
     $conn = OpenCon();
@@ -23,8 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
+ 
+    # Validate the form
     $link = validateForm($_POST["search"]);
+    # Store the previous url
     $previous_url = $_SERVER['HTTP_REFERER'];
 
     if($previous_url == "http://localhost/IAPT/IAPT/index.php"){
@@ -95,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+
         $_SESSION["locations"] = $locations_coordinates;
 
         // ----------------- DATABASE [Retrieving Articles] -----------------
@@ -104,9 +106,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         foreach ($locations_coordinates as $location_data) {
 
-            $temp_location = $location_data["location"];
+            $lat = $location_data["latitude"];
+            $long = $location_data["longitude"];
 
-            $sql = "SELECT * FROM articles WHERE article_location = '$temp_location'";
+            $sql = "SELECT * FROM articles WHERE latitude = '$lat' AND longitude = '$long';";
             $result = mysqli_query($conn, $sql);
             $resultcheck = mysqli_num_rows($result);
 
@@ -121,23 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Store it in a session
         $_SESSION["articles"] = $articles;
 
-        // print_r($_SESSION["articles"]);
-
-        // echo "<br>";
-        // echo "--------------------------------------------------------------------------------------------------<br>";
-
-        // // print each article data, without curly brackets
-        
-
-        // foreach ($_SESSION["articles"] as $article) {
-        //     echo $article["article_title"] . "<br>";
-        //     echo $article["article_location"] . "<br>";
-        //     echo $article["article_date"] . "<br>";
-        //     echo $article["article_desc"] . "<br>";
-        //     echo $article["article_publisher"] . "<br>";
-        //     echo "--------------------------------------------------------------------------------------------------<br>";
-        // }
-        
     }
 
     CloseCon($conn);

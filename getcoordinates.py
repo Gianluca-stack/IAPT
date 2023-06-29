@@ -17,7 +17,7 @@ def get_city_coordinates(city):
                 location = results[0]['formatted_address']
                 geometry = results[0]['geometry']['location']
                 coordinates = {
-                    'location': location,
+                    'location': city,
                     'latitude': geometry['lat'],
                     'longitude': geometry['lng']
                 }
@@ -36,4 +36,7 @@ coordinates = get_city_coordinates(arg1)
         
 if coordinates is not None:
     print(json.dumps(coordinates))
+
+# coordinates = get_city_coordinates('London')
+# print(coordinates)
 

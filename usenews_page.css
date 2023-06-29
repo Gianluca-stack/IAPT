@@ -112,14 +112,6 @@ input[type=submit]:hover{
     color: var(--light-blue);
 }
 
-.view-article{
-    /*display: none;*/
-    position: absolute;
-    /*opacity: 0;*/
-    /*transition: opacity 0.5s ease-in;*/
-}
-
-
 /* clears the 'X' from Internet Explorer */
 input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }
 input[type=search]::-ms-reveal {  display: none; width : 0; height: 0; }
@@ -148,7 +140,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 
 h2{
     text-align: center;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Inconsolata', monospace;
     font-size: 25px;
     margin-bottom: 4%;
 }
@@ -196,14 +188,56 @@ h4{
 }
 
 .news-container{
-    margin: 5% 0 13% 0;
+    position: relative;
+    width: fit-content;
+    overflow: hidden;
+    margin: 5% 0 13% 5%;
     width: 80%;
-    height: 340px;
+    height: 37  0px;
     padding: 30px;
     border: 3px solid var(--grey);
     border-radius: 25px;
     box-shadow: 3px 3px 10px 2px var(--grey);
     background-color: white;
+}
+
+/* View Article Button + Overlay */
+
+.view-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.view-button{
+
+    border: 2px solid var(--grey);
+    border-radius: 10px;
+    background-color: var(--light-blue);
+    color: white;
+    font-size: 30px;
+    padding: 0.3em 0.3em;
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.view-button:hover{
+    background-color: white;
+    color: var(--light-blue);
+}
+
+.view-overlay:hover{
+    backdrop-filter: blur(20px);
+    opacity: 1;
 }
 
 .location,.date{
@@ -245,6 +279,7 @@ h4{
 .view-article {
     display: flex;
     justify-content: center;
+    position: absolute;
 }
 
 .view-article a {
@@ -258,6 +293,34 @@ h4{
 .view-article a:hover {
     background-color: #ddd;
 }
+
+/* Feedback button */
+
+.feedback{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3%;
+}
+
+.feedback-button{
+    border: 2px solid var(--grey);
+    border-radius: 10px;
+    background-color: var(--light-blue);
+    color: white;
+    font-size: 30px;
+    padding: 0.3em 0.3em;
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.feedback-button:hover{
+    background-color: white;
+    color: var(--light-blue);
+}
+
+
 
 @media (max-aspect-ratio: 5/3){
     .grid-container{
